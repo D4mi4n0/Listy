@@ -79,11 +79,7 @@ Listy è un'applicazione per la gestione delle attività, composta da un backend
     E premi "w" per vedere il mobile sul web (quindi premere F12).
 
 ### Per chiudere tutto
-Per chiudere backend, frontend e mobile, fare Ctrl+C. Per chiudere il docker (vedere come aprirlo nella sezione "Database"), scrivere il comando:
-
-    ```sh
-    docker-compose down
-    ```
+Per chiudere backend, frontend e mobile, fare Ctrl+C. Per chiudere il docker (vedere come aprirlo nella sezione "Database"), scrivere il comando `docker-compose down`.
 
 ## Uso
 1. Registra un nuovo account tramite l'applicazione frontend o mobile.
