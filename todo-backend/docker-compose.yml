@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: todo_list_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: S3cr3tP4ssw0rd!!
+      MYSQL_DATABASE: todo_list
+      MYSQL_USER: todo_user
+      MYSQL_PASSWORD: todo_password
+    ports:
+      
+"3306:3306"
+  volumes:db_data:/var/lib/mysql./todo_list.sql:/docker-entrypoint-initdb.d/todo_list.sql:ro
+
+volumes:
+  db_data:
