@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
 import { useNavigate, Link } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // Stato per il messaggio di errore
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,9 +16,13 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage(""); // Resetta il messaggio di errore
-    const res = await api.post("/auth/login", { email, password });
-    localStorage.setItem("token", res.data.token);
-    navigate("/dashboard");
+    try {
+      const res = await api.post("/auth/login", { email, password });
+      localStorage.setItem("token", res.data.token);
+      navigate("/dashboard");
+    } catch (error) {
+      setErrorMessage(error.response?.data?.message || "Errore di login");
+    }
   };
 
   return (
