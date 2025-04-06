@@ -18,14 +18,22 @@ const Dashboard = () => {
   }, []);
 
   const fetchTasks = async () => {
-    const res = await api.get("/tasks");
-    setTasks(res.data);
-    setFilteredTasks(res.data);
+    try {
+      const res = await api.get("/tasks");
+      setTasks(res.data);
+      setFilteredTasks(res.data);
+    } catch (error) {
+      alert("❌ Errore nel recupero delle attività: " + (error.response?.data?.message || error.message));
+    }
   };
 
   const fetchUserName = async () => {
-    const res = await api.get("/auth/user");
-    setUserName(res.data.name);
+    try {
+      const res = await api.get("/auth/user");
+      setUserName(res.data.name);
+    } catch (error) {
+      console.error("❌ Errore nel recupero del nome utente:", error);
+    }
   };
 
   const addTask = async (name) => {
