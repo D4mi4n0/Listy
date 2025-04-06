@@ -15,7 +15,26 @@ const Register = () => {
     document.title = "Registrazione - Listy";
   }, []);
 
+  const checkNameAvailability = async (name) => {
+    try {
+      const res = await api.post("/auth/check-name", { name });
+      setNameAvailable(res.data.available);
+    } catch (error) {
+      console.error("Errore nel controllo del nome:", error);
+    }
+  };
+
+  const validatePassword = (password) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  };
+
   const handleRegister = async (e) => {
+    e.preventDefault();
+    if (!validatePassword(password)) {
+      setPasswordError("La password deve contenere almeno 8 caratteri, una lettera maiuscola, una minuscola, un numero e un simbolo speciale.");
+      return;
+    }
     try {
       const response = await api.post("/auth/register", { name, email, password });
       if (response && response.data) {
@@ -28,6 +47,12 @@ const Register = () => {
       alert("Errore di registrazione: " + (error.response?.data?.message || error.message));
     }
   };
+
+  useEffect(() => {
+    if (name) {
+      checkNameAvailability(name);
+    }
+  }, [name]);
 
   return (
     <div className="register-container">
