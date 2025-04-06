@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import sadGif from "../assets/addio-amici.gif";
 
 const ConfirmDeleteAccount = () => {
   const [confirmationText, setConfirmationText] = useState("");
@@ -12,9 +13,13 @@ const ConfirmDeleteAccount = () => {
 
   const handleDeleteAccount = async () => {
     if (confirmationText === "Non ho nulla da fare") {
-      await api.delete("/auth/delete-account");
-      localStorage.removeItem("token");
-      navigate("/register");
+      try {
+        await api.delete("/auth/delete-account");
+        localStorage.removeItem("token");
+        navigate("/register");
+      } catch (error) {
+        alert("Errore nell'eliminazione dell'account: " + error.response.data.message);
+      }
     } else {
       alert("La frase di conferma non è corretta.");
     }
