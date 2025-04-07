@@ -4,7 +4,8 @@ import api from "../services/api";
 const TaskList = ({ tasks, onDelete, onToggle }) => {
   const handleToggle = async (task) => {
     const updatedTask = { ...task, completed: !task.completed };
-    await api.put(`/tasks/${task.id}`, { completed: updatedTask.completed });;
+    await api.put(`/tasks/${task.id}`, { completed: updatedTask.completed });
+    onToggle(updatedTask); // Passa l'intero task aggiornato
   };
 
   return (
