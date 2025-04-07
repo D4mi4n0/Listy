@@ -5,7 +5,7 @@ USE todo_list;
 
 CREATE TABLE IF NOT EXISTS Users (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    --id univoco per ogni utente che viene automaticamente incrementato
+    --id univoco per ogni utente, viene automaticamente incrementato
 
     name VARCHAR(50) NOT NULL,
 
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS Users (
 
 CREATE TABLE IF NOT EXISTS Tasks (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    --id univoco per ogni singola task che viene automaticamente incrementato
+    --id univoco per ogni singola task, viene automaticamente incrementato
 
     user_id INT NOT NULL,
 
