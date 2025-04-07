@@ -1,17 +1,21 @@
 services:
-  db:
-    image: mysql:8.0
-    container_name: todo_list_db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: S3cr3tP4ssw0rd!!
-      MYSQL_DATABASE: todo_list
-      MYSQL_USER: todo_user
-      MYSQL_PASSWORD: todo_password
+  db: #Specifica un container MySQL
+    image: mysql:8.0  
+    container_name: todo_list_db  
+    restart: always  
+    environment: #Variabili d'ambiente
+      MYSQL_ROOT_PASSWORD: S3cr3tP4ssw0rd!!  
+      MYSQL_DATABASE: todo_list  
+      MYSQL_USER: todo_user  
+      MYSQL_PASSWORD: todo_password  
     ports:
-      
-"3306:3306"
-  volumes:db_data:/var/lib/mysql./todo_list.sql:/docker-entrypoint-initdb.d/todo_list.sql:ro
+      - "3306:3306"  #Apre la porta 3306 del container sul sistema host, sulla stessa porta
+
+    volumes: #Serve per "Montare" i volumi per la permanenza dei dati 
+      - db_data:/var/lib/mysql  
+      - ./todo_list.sql:/docker-entrypoint-initdb.d/todo_list.sql:ro  
+        #Copia il file SQL nel container per inizializzare il DB
+        #Il flag :ro lo rende read-only
 
 volumes:
-  db_data:
+  db_data:  #Volume per conservare i dati MySQL
