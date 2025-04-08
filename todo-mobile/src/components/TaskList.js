@@ -25,7 +25,7 @@ const TaskList = ({ tasks, onDelete, onToggle }) => {
                 onValueChange={() => handleToggle(task)} // Funzione chiamata quando il valore del checkbox cambia
               />
               <TouchableOpacity style={styles.deleteButton} onPress={() => onDelete(task.id)}>
-                <Text style={styles.deleteButtonText}>X</Text> // Pulsante per eliminare il task
+                <Text style={styles.deleteButtonText}>X</Text>
               </TouchableOpacity>
             </View>
           </View>
