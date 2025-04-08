@@ -1,45 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import api from "../services/api";
 
 // Componente funzionale TaskList che accetta tasks, onDelete e onToggle come props
 const TaskList = ({ tasks, onDelete, onToggle }) => {
+  const [searchTerm, setSearchTerm] = useState(""); // Stato per il termine di ricerca
 
   // Funzione che gestisce il toggle dello stato di completamento di un task
   const handleToggle = async (task) => {
-    // Crea una copia del task aggiornato con il campo 'completed' invertito
     const updatedTask = { ...task, completed: !task.completed };
-    // Manda una richiesta PUT all'API per aggiornare il task nel backend
     await api.put(`/tasks/${task.id}`, { completed: updatedTask.completed });
-    // Chiama la funzione onToggle passata come prop con il task aggiornato
     onToggle(updatedTask);
   };
 
+  // Filtra le attività in base al termine di ricerca
+  const filteredTasks = tasks.filter((task) =>
+    task.name.toLowerCase().startsWith(searchTerm.toLowerCase())
+  );
+
   return (
-    <ul>
-      {tasks.length === 0 ? (
-        // Mostra un messaggio se non ci sono task nella lista
-        <p>🚀 Nessuna attività in elenco. Scrivi la prima! :)</p>
-      ) : (
-        // Mappa attraverso i tasks e crea un elemento <li> per ciascuno
-        tasks.map((task) => (
-          <li key={task.id}>
-            <div className="task-text">{task.name}</div>
-            <div className="task-actions">
-              {/* Checkbox per togglare lo stato di completamento del task */}
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => handleToggle(task)}
-              />
-              {/* Bottone per cancellare il task */}
-              <button onClick={() => onDelete(task.id)}>
-                <strong>X</strong>
-              </button>
-            </div>
-          </li>
-        ))
-      )}
-    </ul>
+    <div>
+      {/* Campo di input per il termine di ricerca */}
+      <input
+        type="text"
+        placeholder="Cerca attività per lettera o termine..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-bar"
+      />
+      <ul>
+        {filteredTasks.length === 0 ? (
+          <p>🚀 Nessuna attività corrisponde alla ricerca. Prova con un altro termine!</p>
+        ) : (
+          filteredTasks.map((task) => (
+            <li key={task.id}>
+              <div className="task-text">{task.name}</div>
+              <div className="task-actions">
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => handleToggle(task)}
+                />
+                <button onClick={() => onDelete(task.id)}>
+                  <strong>X</strong>
+                </button>
+              </div>
+            </li>
+          ))
+        )}
+      </ul>
+    </div>
   );
 };
 
