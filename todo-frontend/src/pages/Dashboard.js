@@ -3,6 +3,7 @@ import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import TaskList from "../components/TaskList";
 import TaskForm from "../components/TaskForm";
+import "../dashboard.css"; // Importa il nuovo file CSS
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]); // Stato per memorizzare le attività

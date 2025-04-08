@@ -26,8 +26,8 @@ const TaskForm = ({ onAdd }) => {
         maxLength={maxLength}  // Imposta la lunghezza massima dell'input
         className="task-input"  // Classe CSS per lo stile dell'input
       />
-      <button type="submit" className="task-button">Aggiungi</button>  // Pulsante per aggiungere l'attività
-      <p>{taskName.length}/{maxLength} caratteri</p>  // Mostra il conteggio dei caratteri
+      <button type="submit" className="task-button">Aggiungi</button>
+      <p>{taskName.length}/{maxLength} caratteri</p>
     </form>
   );
 };

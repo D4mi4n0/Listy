@@ -21,7 +21,7 @@ Listy è un'applicazione per la gestione delle attività, composta da un backend
 ## Installazione (in ordine, dal database in giù)
 
 ### Database
-1. Assicurati di avere Docker installato.
+1. Assicurati di avere Docker Desktop installato, aprilo (obbligatorio).
 2. Avvia il database con Docker:
     ```sh
     docker-compose up -d
@@ -87,6 +87,20 @@ Per chiudere backend, frontend e mobile, fare Ctrl+C. Per chiudere il docker (ve
     ```sh
     docker-compose down
     ```
+
+## Problema con il database
+Se dovesse succedere che il docker non parte, può essere che la porta del database sia già in uso. Quindi segui i seguenti passaggi:
+1. Esegui il Prompt dei Comandi come Amministratore.
+2. Successivamente digita questo comando:
+   ```sh
+   netstat -ano | findstr :3306
+   ```
+   Questo mostrerà il PID (Process ID) del processo che sta usando la porta.
+3. Poi termina il processo con questo comando:
+   ```sh
+   taskkill /PID <PID> /F
+   ```
+   In cui si sostituisce PID (quello tra <>) con il numero del processo.
 
 ## Uso
 1. Registra un nuovo account tramite l'applicazione frontend o mobile.
