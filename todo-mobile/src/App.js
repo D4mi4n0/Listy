@@ -9,36 +9,36 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import ConfirmDeleteAccount from './pages/ConfirmDeleteAccount';
 
-const Stack = createStackNavigator(); // Creazione di uno stack navigator
+const Stack = createStackNavigator();
 
 export default function App() {
-  const [fontsLoaded, setFontsLoaded] = useState(false); // Stato per tracciare se i caratteri sono caricati
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
     async function loadFonts() {
-      await SplashScreen.preventAutoHideAsync(); // Impedire che la schermata iniziale si nasconda automaticamente
+      await SplashScreen.preventAutoHideAsync();
       await Font.loadAsync({
         Montserrat_400Regular,
         Montserrat_500Medium,
         Montserrat_700Bold,
-      }); // Caricare i caratteri in modo asincrono
-      setFontsLoaded(true); // Impostare fontsLoaded su true una volta che i caratteri sono caricati
-      await SplashScreen.hideAsync(); // Nascondere la schermata iniziale
+      });
+      setFontsLoaded(true);
+      await SplashScreen.hideAsync();
     }
-    loadFonts(); // Chiamare la funzione loadFonts
-  }, []); // L'array delle dipendenze vuoto significa che questo effetto viene eseguito una volta al montaggio
+    loadFonts();
+  }, []);
 
   if (!fontsLoaded) {
-    return null; // Restituire null se i caratteri non sono ancora caricati
+    return null;
   }
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login"> {/* La rotta iniziale è impostata su Login */}
-        <Stack.Screen name="Login" component={Login} /> {/* Schermata di Login */}
-        <Stack.Screen name="Register" component={Register} /> {/* Schermata di Registrazione */}
-        <Stack.Screen name="Dashboard" component={Dashboard} /> {/* Schermata di Dashboard */}
-        <Stack.Screen name="ConfirmDeleteAccount" component={ConfirmDeleteAccount} /> {/* Schermata di Conferma Eliminazione Account */}
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="ConfirmDeleteAccount" component={ConfirmDeleteAccount} />
       </Stack.Navigator>
     </NavigationContainer>
   );
