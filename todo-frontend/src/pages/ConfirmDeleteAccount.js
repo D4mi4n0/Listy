@@ -48,7 +48,10 @@ const ConfirmDeleteAccount = () => {
       <div className="separator"></div>
       <div className="form-container">
         <h2>Noooo... Mi lasci così? :'( </h2>
-        <p>Sob, sob... A quanto pare non eravamo fatti per stare insieme. Però se proprio devi... Per confermare la cancellazione del tuo account, scrivi la frase "Non ho nulla da fare" e clicca [...]</p>
+        <p>
+          Sob, sob... A quanto pare non eravamo fatti per stare insieme. Però se proprio devi... 
+          Per confermare la cancellazione del tuo account, scrivi la frase "Non ho nulla da fare" e clicca...
+        </p>
         <input
           type="text"
           placeholder="Scrivi qui la frase di conferma"
@@ -61,6 +64,5 @@ const ConfirmDeleteAccount = () => {
       </div>
     </div>
   );
-};
 
 export default ConfirmDeleteAccount;
