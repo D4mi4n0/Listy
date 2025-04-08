@@ -9,9 +9,13 @@ Listy è un'applicazione per la gestione delle attività, composta da un backend
 - `todo-mobile`: Contiene l'applicazione mobile sviluppata con React Native.
 - `todo_list.sql`: Contiene il file SQL per la creazione del database.
 
-## Requisiti
+## Tecnologie Utilizzate (richieste)
 - Node.js
-- npm
+- Express
+- MySQL
+- React
+- React Native
+- Expo
 - Docker
 
 ## Installazione (in ordine, dal database in giù)
@@ -89,15 +93,6 @@ Per chiudere backend, frontend e mobile, fare Ctrl+C. Per chiudere il docker (ve
 2. Effettua il login.
 3. Aggiungi, modifica e cancella le tue attività.
 4. Puoi anche eliminare l'account o fare il logout.
-
-## Tecnologie Utilizzate
-- Node.js
-- Express
-- MySQL
-- React
-- React Native
-- Expo
-- Docker
 
 ## Licenza
 Questo progetto è rilasciato sotto la licenza MIT.
