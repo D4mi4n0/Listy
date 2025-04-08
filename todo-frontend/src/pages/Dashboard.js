@@ -5,18 +5,19 @@ import TaskList from "../components/TaskList";
 import TaskForm from "../components/TaskForm";
 
 const Dashboard = () => {
-  const [tasks, setTasks] = useState([]);
-  const [filteredTasks, setFilteredTasks] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [userName, setUserName] = useState("");
-  const navigate = useNavigate();
+  const [tasks, setTasks] = useState([]); // Stato per memorizzare le attività
+  const [filteredTasks, setFilteredTasks] = useState([]); // Stato per memorizzare le attività filtrate
+  const [searchTerm, setSearchTerm] = useState(""); // Stato per memorizzare il termine di ricerca
+  const [userName, setUserName] = useState(""); // Stato per memorizzare il nome dell'utente
+  const navigate = useNavigate(); // Hook per la navigazione
 
   useEffect(() => {
-    fetchTasks();
-    fetchUserName();
-    document.title = "La tua Listy! - Listy";
+    fetchTasks(); // Recupera le attività all'avvio
+    fetchUserName(); // Recupera il nome dell'utente all'avvio
+    document.title = "La tua Listy! - Listy"; // Imposta il titolo della pagina
   }, []);
 
+  // Funzione per recuperare le attività dal server
   const fetchTasks = async () => {
     try {
       const res = await api.get("/tasks");
@@ -27,6 +28,7 @@ const Dashboard = () => {
     }
   };
 
+  // Funzione per recuperare il nome dell'utente dal server
   const fetchUserName = async () => {
     try {
       const res = await api.get("/auth/user");
@@ -36,31 +38,38 @@ const Dashboard = () => {
     }
   };
 
+  // Funzione per aggiungere una nuova attività
   const addTask = async (name) => {
     await api.post("/tasks", { name });
-    fetchTasks();
+    fetchTasks(); // Aggiorna l'elenco delle attività
   };
 
+  // Funzione per eliminare un'attività
   const deleteTask = async (id) => {
     await api.delete(`/tasks/${id}`);
-    fetchTasks();
+    fetchTasks(); // Aggiorna l'elenco delle attività
   };
 
+  // Funzione per attivare/disattivare lo stato di completamento di un'attività
   const toggleTask = async (updatedTask) => {
     await api.put(`/tasks/${updatedTask.id}`, { completed: updatedTask.completed });
+    // Aggiorna lo stato locale delle attività
     setTasks(tasks.map(task => task.id === updatedTask.id ? updatedTask : task));
     setFilteredTasks(filteredTasks.map(task => task.id === updatedTask.id ? updatedTask : task));
   };
 
+  // Funzione per effettuare il logout
   const logout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
 
+  // Funzione per confermare l'eliminazione dell'account
   const confirmDeleteAccount = () => {
     navigate("/confirm-delete-account");
   };
 
+  // Funzione per gestire la ricerca delle attività
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     if (e.target.value === "") {
