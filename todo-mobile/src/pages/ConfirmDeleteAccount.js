@@ -4,24 +4,35 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../services/api';
 import sadGif from '../../assets/addio-amici.gif'; // Assicurati che il percorso sia corretto
 
+// Componente principale per confermare l'eliminazione dell'account
 const ConfirmDeleteAccount = ({ navigation }) => {
+  // Stato per memorizzare il testo di conferma inserito dall'utente
   const [confirmationText, setConfirmationText] = useState('');
 
+  // Funzione per gestire l'eliminazione dell'account
   const handleDeleteAccount = async () => {
+    // Controlla se il testo di conferma corrisponde alla frase richiesta
     if (confirmationText === 'Non ho nulla da fare') {
       try {
+        // Richiesta per eliminare l'account tramite l'API
         await api.delete('/auth/delete-account');
+        // Rimuove il token di autenticazione dalla memoria locale
         await AsyncStorage.removeItem('token');
+        // Mostra un messaggio di successo
         Alert.alert('✅ Account eliminato con successo');
+        // Naviga alla schermata di registrazione
         navigation.navigate('Register');
       } catch (error) {
+        // Mostra un messaggio di errore in caso di problemi
         Alert.alert('Errore nell\'eliminazione dell\'account', error.response ? error.response.data.message : error.message);
       }
     } else {
+      // Mostra un messaggio di errore se il testo di conferma non è corretto
       Alert.alert('La frase di conferma non è corretta.');
     }
   };
 
+  // Funzione per tornare alla dashboard
   const goBackToDashboard = () => {
     navigation.navigate('Dashboard');
   };
@@ -33,7 +44,7 @@ const ConfirmDeleteAccount = ({ navigation }) => {
         <View style={styles.separator} />
         <Text style={styles.title}>Noooo... Mi lasci così? :'(</Text>
         <Text style={styles.description}>
-          Sob, sob... A quanto pare non eravamo fatti per stare insieme. Però se proprio devi... Per confermare la cancellazione del tuo account, scrivi la frase "Non ho nulla da fare" e clicca sul pulsante "Elimina Account".
+          Sob, sob... A quanto pare non eravamo fatti per stare insieme. Però se proprio devi... Per confermare la cancellazione del tuo account, scrivi la frase "Non ho nulla da fare" e clicca su "Elimina Account".
         </Text>
         <TextInput
           style={styles.input}
@@ -53,6 +64,7 @@ const ConfirmDeleteAccount = ({ navigation }) => {
   );
 };
 
+// Stili per il componente
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -83,7 +95,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   description: {
-    fontSize: 14, // Riduciamo la dimensione del testo
+    fontSize: 14,
     marginBottom: 20,
     textAlign: 'center',
     fontFamily: 'Montserrat_400Regular',
