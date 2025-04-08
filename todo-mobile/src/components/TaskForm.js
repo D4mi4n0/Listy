@@ -1,19 +1,22 @@
-// filepath: todo-mobile/src/components/TaskForm.js
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
+// Definiamo il componente TaskForm che riceve una funzione onAdd come prop
 const TaskForm = ({ onAdd }) => {
+  // Utilizziamo lo stato per gestire il nome del task
   const [taskName, setTaskName] = useState('');
-  const maxLength = 80;
+  const maxLength = 80; // Lunghezza massima del nome del task
 
+  // Funzione per gestire l'invio del form
   const handleSubmit = () => {
-    if (!taskName.trim()) return;
-    onAdd(taskName);
-    setTaskName('');
+    if (!taskName.trim()) return; // Se il nome del task è vuoto, non facciamo nulla
+    onAdd(taskName); // Chiamiamo la funzione onAdd con il nome del task
+    setTaskName(''); // Resettiamo il nome del task
   };
 
   return (
     <View style={styles.formContainer}>
+      {/* Campo di input per il nome del task */}
       <TextInput
         style={styles.input}
         placeholder={`Aggiungi attività (max ${maxLength} caratteri)`}
@@ -21,14 +24,17 @@ const TaskForm = ({ onAdd }) => {
         onChangeText={setTaskName}
         maxLength={maxLength}
       />
+      {/* Pulsante per aggiungere il task */}
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Aggiungi</Text>
       </TouchableOpacity>
+      {/* Contatore dei caratteri */}
       <Text style={styles.charCount}>{taskName.length}/{maxLength} caratteri</Text>
     </View>
   );
 };
 
+// Definizione degli stili utilizzati nel componente
 const styles = StyleSheet.create({
   formContainer: {
     alignItems: 'center',
@@ -64,4 +70,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Esportiamo il componente TaskForm
 export default TaskForm;
