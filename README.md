@@ -62,7 +62,7 @@ Listy è un'applicazione per la gestione delle attività, composta da un backend
     ```sh
     npm install
     ```
-3. Avvia l'applicazione:
+3. Avvia l'applicazione (dunque premere su sì (Y) per connettersi su un altra porta):
     ```sh
     npm start
     ```
