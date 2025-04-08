@@ -100,7 +100,7 @@ Se dovesse succedere che il docker non parte, può essere che la porta del datab
    ```sh
    taskkill /PID <PID> /F
    ```
-   In cui si sostituisce '<PID>' con il numero del processo.
+   In cui si sostituisce PID (quello tra <>) con il numero del processo.
 
 ## Uso
 1. Registra un nuovo account tramite l'applicazione frontend o mobile.
