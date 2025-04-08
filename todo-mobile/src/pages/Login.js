@@ -5,16 +5,22 @@ import api from '../services/api';
 import { useNavigation } from '@react-navigation/native';
 import logo from '../../assets/logo.png'; // Assicurati che il percorso sia corretto
 
+// Componente di login
 const Login = () => {
+  // Stati per email e password
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
 
+  // Funzione di gestione del login
   const handleLogin = async () => {
     try {
+      // Richiesta di login all'API
       const response = await api.post('/auth/login', { email, password });
       console.log('Login response:', response.data);
+      // Salvataggio del token in AsyncStorage
       await AsyncStorage.setItem('token', response.data.token);
+      // Navigazione alla dashboard
       navigation.navigate('Dashboard');
     } catch (error) {
       console.error('Login error:', error.response ? error.response.data : error.message);
@@ -57,6 +63,7 @@ const Login = () => {
   );
 };
 
+// Stili per il componente Login
 const styles = StyleSheet.create({
   container: {
     flex: 1,
