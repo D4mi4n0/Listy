@@ -64,5 +64,6 @@ const ConfirmDeleteAccount = () => {
       </div>
     </div>
   );
+};
 
 export default ConfirmDeleteAccount;
