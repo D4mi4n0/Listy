@@ -3,7 +3,7 @@ import api from "../services/api";
 
 // Componente funzionale TaskList che accetta tasks, onDelete e onToggle come props
 const TaskList = ({ tasks, onDelete, onToggle }) => {
-  const [searchTerm, setSearchTerm] = useState(""); // Stato per il termine di ricerca
+  const [searchTerm] = useState(""); // Stato per il termine di ricerca
 
   // Funzione che gestisce il toggle dello stato di completamento di un task
   const handleToggle = async (task) => {
@@ -19,17 +19,9 @@ const TaskList = ({ tasks, onDelete, onToggle }) => {
 
   return (
     <div>
-      {/* Campo di input per il termine di ricerca */}
-      <input
-        type="text"
-        placeholder="Cerca attività per lettera o termine..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="search-bar"
-      />
       <ul>
         {filteredTasks.length === 0 ? (
-          <p>🚀 Nessuna attività corrisponde alla ricerca. Prova con un altro termine!</p>
+          <p>🚀 Nessuna attività in elenco. Scrivi la prima! :)</p>
         ) : (
           filteredTasks.map((task) => (
             <li key={task.id}>
