@@ -31,9 +31,3 @@ CREATE TABLE IF NOT EXISTS Tasks (
     e "userd_id" di Task se l'utente viene eliminato si cancelleranno anche i suoi task grazie 
     a ON DELETE CASCADE */
 );
-
-
-    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
-    --foreign key che mette in relazione il task con l'utente, con gli attributi "id" di User e "userd_id" di Task
-    --se l'utente viene eliminato si cancelleranno anche i suoi task grazie a ON DELETE CASCADE  
-);
