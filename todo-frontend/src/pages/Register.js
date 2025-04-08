@@ -3,7 +3,9 @@ import api from "../services/api";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 
+// Componente principale per la registrazione
 const Register = () => {
+  // Stati per gestire i dati dell'utente
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,10 +13,12 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
+  // Effetto per impostare il titolo della pagina
   useEffect(() => {
     document.title = "Registrazione - Listy";
   }, []);
 
+  // Funzione per controllare la disponibilità del nome utente
   const checkNameAvailability = async (name) => {
     try {
       const res = await api.post("/auth/check-name", { name });
@@ -24,11 +28,13 @@ const Register = () => {
     }
   };
 
+  // Funzione per validare la password secondo specifici criteri
   const validatePassword = (password) => {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return regex.test(password);
   };
 
+  // Funzione per gestire il processo di registrazione
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!validatePassword(password)) {
@@ -48,12 +54,14 @@ const Register = () => {
     }
   };
 
+  // Effetto per controllare la disponibilità del nome utente ogni volta che il nome cambia
   useEffect(() => {
     if (name) {
       checkNameAvailability(name);
     }
   }, [name]);
 
+  // Render del componente
   return (
     <div className="register-container">
       <div className="logo-container">
