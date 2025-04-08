@@ -72,11 +72,16 @@ const Dashboard = () => {
 
   // Funzione per gestire la ricerca delle attività
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    if (e.target.value === "") {
-      setFilteredTasks(tasks);
+    const searchTerm = e.target.value.toLowerCase(); // Converti il termine di ricerca in minuscolo
+    setSearchTerm(searchTerm); // Aggiorna lo stato del termine di ricerca
+  
+    // Filtra le attività in base al termine di ricerca
+    if (searchTerm === "") {
+      setFilteredTasks(tasks); // Mostra tutte le attività se il termine di ricerca è vuoto
     } else {
-      setFilteredTasks(tasks.filter(task => task.name.toLowerCase().includes(e.target.value.toLowerCase())));
+      setFilteredTasks(
+        tasks.filter((task) => task.name.toLowerCase().includes(searchTerm))
+      );
     }
   };
 
