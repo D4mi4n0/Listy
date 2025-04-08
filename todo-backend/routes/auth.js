@@ -69,6 +69,7 @@ router.get('/user', authMiddleware, async (req, res) => {
     const userId = req.user.id; 
     //Cerca l'utente nel db
     const [users] = await db.query('SELECT name FROM Users WHERE id = ?', [userId]);
+    //Errore se il nome utente non viene trovato
     if (users.length === 0) return res.status(404).json({ message: 'Utente non trovato' });
     res.json({ name: users[0].name });
 });
@@ -77,6 +78,7 @@ router.get('/user', authMiddleware, async (req, res) => {
 router.delete('/delete-account', authMiddleware, async (req, res) => {
     //Recupera l'id utente dal token  
     const userId = req.user.id;
+    //Cancella il record user dal db
     await db.query('DELETE FROM Users WHERE id = ?', [userId]);
     res.json({ message: 'Account eliminato' });
 });
