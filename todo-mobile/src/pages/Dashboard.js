@@ -1,4 +1,3 @@
-// filepath: todo-mobile/src/pages/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -6,17 +5,21 @@ import api from '../services/api';
 import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
 
+// Componente principale Dashboard
 const Dashboard = ({ navigation }) => {
+  // Stati per le attività, le attività filtrate, il termine di ricerca e il nome utente
   const [tasks, setTasks] = useState([]);
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [userName, setUserName] = useState('');
 
+  // Effetto per caricare le attività e il nome utente al montaggio del componente
   useEffect(() => {
     fetchTasks();
     fetchUserName();
   }, []);
 
+  // Funzione per recuperare le attività dall'API
   const fetchTasks = async () => {
     try {
       const res = await api.get('/tasks');
@@ -27,6 +30,7 @@ const Dashboard = ({ navigation }) => {
     }
   };
 
+  // Funzione per recuperare il nome utente dall'API
   const fetchUserName = async () => {
     try {
       const res = await api.get('/auth/user');
@@ -36,22 +40,26 @@ const Dashboard = ({ navigation }) => {
     }
   };
 
+  // Funzione per aggiungere una nuova attività
   const addTask = async (name) => {
     await api.post('/tasks', { name });
     fetchTasks();
   };
 
+  // Funzione per eliminare un'attività
   const deleteTask = async (id) => {
     await api.delete(`/tasks/${id}`);
     fetchTasks();
   };
 
+  // Funzione per aggiornare lo stato di completamento di un'attività
   const toggleTask = async (updatedTask) => {
     await api.put(`/tasks/${updatedTask.id}`, { completed: updatedTask.completed });
     setTasks(tasks.map(task => task.id === updatedTask.id ? updatedTask : task));
     setFilteredTasks(filteredTasks.map(task => task.id === updatedTask.id ? updatedTask : task));
   };
 
+  // Funzione per gestire il termine di ricerca
   const handleSearch = (text) => {
     setSearchTerm(text);
     if (text === '') {
@@ -61,6 +69,7 @@ const Dashboard = ({ navigation }) => {
     }
   };
 
+  // Funzione per effettuare il logout
   const logout = async () => {
     await AsyncStorage.removeItem('token');
     navigation.navigate('Login');
@@ -96,6 +105,7 @@ const Dashboard = ({ navigation }) => {
   );
 };
 
+// Stili per il componente Dashboard
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -164,4 +174,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// Esportazione del componente Dashboard
 export default Dashboard;
