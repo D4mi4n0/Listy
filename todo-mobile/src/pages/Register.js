@@ -5,16 +5,17 @@ import { useNavigation } from '@react-navigation/native';
 import logo from '../../assets/logo.png'; // Assicurati che il percorso sia corretto
 
 const Register = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const navigation = useNavigation();
+  const [name, setName] = useState(''); // Stato per il nome
+  const [email, setEmail] = useState(''); // Stato per l'email
+  const [password, setPassword] = useState(''); // Stato per la password
+  const navigation = useNavigation(); // Hook per la navigazione
 
   const handleRegister = async () => {
     try {
+      // Effettua una chiamata API per registrare un nuovo utente
       await api.post('/auth/register', { name, email, password });
       alert('✅ Registrazione avvenuta con successo');
-      navigation.navigate('Login');
+      navigation.navigate('Login'); // Naviga alla pagina di login
     } catch (error) {
       console.error('Register error:', error.response ? error.response.data : error.message);
       alert('❌ Errore nella registrazione');
@@ -25,7 +26,7 @@ const Register = () => {
     <View style={styles.container}>
       <View style={styles.box}>
         <View style={styles.logoContainer}>
-          <Image source={logo} style={styles.logo} />
+          <Image source={logo} style={styles.logo} /> {/* Mostra il logo */}
         </View>
         <View style={styles.separator} />
         <Text style={styles.title}>Registrati</Text>
